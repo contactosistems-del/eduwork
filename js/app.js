@@ -1,4 +1,4 @@
-/* EduWork · interfaz (SPA con rutas por hash) */
+/* EduWorkLine · interfaz (SPA con rutas por hash) */
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
@@ -95,7 +95,7 @@
       links += a('#/entrar', 'Iniciar sesión') + `<a class="btn sm" href="#/registro" style="color:#fff">Crear cuenta</a>`;
     }
     $('#topbar').innerHTML = `<div class="wrap topbar-in">
-      <a class="brand" href="#/"><img src="assets/logo.svg" alt=""><span>EduWork</span></a>
+      <a class="brand" href="#/"><img src="assets/logo.svg" alt=""><span>EduWork<em class="bl">Line</em></span></a>
       <button class="menu-btn" aria-label="Menú" id="menuBtn">${I.menu}</button>
       <nav class="nav" id="nav">${links}</nav></div>`;
     $('#menuBtn').onclick = () => $('#nav').classList.toggle('open');
@@ -207,7 +207,7 @@
     </div></section>
     <section class="section"><div class="wrap two-col">
       <div>
-        ${c.objective ? `<div class="objective"><span style="color:#7A5A0C">${I.award}</span><div><b>Objetivo de aprendizaje</b>${esc(c.objective)}</div></div>` : ''}
+        ${c.objective ? `<div class="objective"><span style="color:#4D6B0A">${I.award}</span><div><b>Objetivo de aprendizaje</b>${esc(c.objective)}</div></div>` : ''}
         <h2>Contenido del curso</h2>
         <div class="card"><ul class="syllabus">
           ${c.lessons.map((l, i) => { const d = e && e.completed.includes(l.id); const inner = `<span class="n ${d ? 'done' : ''}">${d ? I.check : i + 1}</span><span class="t">${esc(l.title)}<br><span class="small muted">${typeLabel[l.type]} · ${l.minutes} min</span></span>`;
@@ -348,7 +348,7 @@
     return `<div class="cert-wrap"><div class="wrap" style="max-width:960px">
       ${own ? `<div class="row between no-print" style="margin-bottom:1rem"><a href="#/panel" class="small">← Mi progreso</a><div class="row"><button class="btn ghost sm" id="copyLink">Copiar enlace</button><button class="btn sm" onclick="window.print()">Descargar / imprimir PDF</button></div></div>` : ''}
       <div class="cert">
-        <div class="cert-top"><div class="brand"><img src="assets/logo.svg" alt=""><span>EduWork</span></div><span class="small muted">Folio: <b>${esc(e.certificate.folio)}</b></span></div>
+        <div class="cert-top"><div class="brand"><img src="assets/logo.svg" alt=""><span>EduWork<em class="bl">Line</em></span></div><span class="small muted">Folio: <b>${esc(e.certificate.folio)}</b></span></div>
         <div class="cert-body">
           <div class="k">Constancia de acreditación</div>
           <h2>Se otorga la presente a</h2>
@@ -359,8 +359,8 @@
         </div>
         <div class="cert-foot">
           <div><b>Fecha de emisión</b><br>${fmtDate(e.certificate.issuedAt)}</div>
-          <div class="seal">EDU WORK<br>VERIFICADA</div>
-          <div class="sig"><b>Coordinación académica</b><br>EduWork</div>
+          <div class="seal">EDUWORKLINE<br>VERIFICADA</div>
+          <div class="sig"><b>Coordinación académica</b><br>EduWorkLine</div>
         </div>
       </div>
       ${own ? `<p class="small muted center mt no-print">Cualquier persona puede verificar esta constancia en <a href="${esc(url)}">${esc(url.replace(/^https?:\/\//, ''))}</a></p>` : ''}
@@ -376,10 +376,10 @@
     if (folio) {
       const f = Store.findCertificate(decodeURIComponent(folio));
       result = f ? `<div class="result pass mt"><div class="score" style="font-size:1.6rem">${I.award}</div><div><b>Constancia válida</b><br><span class="small">${esc(f.user.name)} acreditó <b>${esc(f.course.title)}</b> el ${fmtDate(f.e.certificate.issuedAt)}.</span></div></div>${certHtml(f.user, f.course, f.e, false)}`
-        : `<div class="result fail mt"><div><b>No encontramos ese folio.</b><br><span class="small">Revisa que esté escrito correctamente (ejemplo: EW-2026-AB12C).</span></div></div>`;
+        : `<div class="result fail mt"><div><b>No encontramos ese folio.</b><br><span class="small">Revisa que esté escrito correctamente (ejemplo: EWL-2026-AB12C).</span></div></div>`;
     }
     return `<div class="narrow section"><h1>Verificar constancia</h1><p class="muted">Escribe el folio que aparece en la constancia para confirmar que es auténtica.</p>
-      <form class="row" id="verForm"><input type="text" id="folio" placeholder="EW-2026-XXXXX" value="${esc(decodeURIComponent(folio || ''))}" style="flex:1;min-width:200px;text-transform:uppercase" required><button class="btn">Verificar</button></form>
+      <form class="row" id="verForm"><input type="text" id="folio" placeholder="EWL-2026-XXXXX" value="${esc(decodeURIComponent(folio || ''))}" style="flex:1;min-width:200px;text-transform:uppercase" required><button class="btn">Verificar</button></form>
       ${result}</div>`;
   };
   views.verify.mount = () => { $('#verForm').onsubmit = ev => { ev.preventDefault(); go('#/verificar/' + encodeURIComponent($('#folio').value.trim().toUpperCase())); }; };
@@ -403,7 +403,7 @@
           <div class="error" id="authErr" role="alert"></div>
           <button class="btn block" type="submit">${isLogin ? 'Entrar' : 'Crear cuenta'}</button>
         </form>
-        ${isLogin ? `<div class="demo-box mt"><b>Cuentas de demostración</b><br>Estudiante: <code>estudiante@eduwork.mx</code> / <code>demo123</code><br>Administrador: <code>admin@eduwork.mx</code> / <code>admin123</code></div>` : ''}
+        ${isLogin ? `<div class="demo-box mt"><b>Cuentas de demostración</b><br>Estudiante: <code>estudiante@eduworkline.mx</code> / <code>demo123</code><br>Administrador: <code>admin@eduworkline.mx</code> / <code>admin123</code></div>` : ''}
       </div></div></div>`;
   }
   const authMount = (q) => {
@@ -432,7 +432,7 @@
       return `<div class="progress-item">${ring(p)}<div class="info"><div class="row" style="gap:.5rem;margin-bottom:.25rem"><h4 style="margin:0">${esc(c.title)}</h4>${stTag(e)}</div><div class="small muted">${e.completed.length}/${c.lessons.length} lecciones · ${e.quiz ? 'Evaluación: ' + e.quiz.best + '%' : 'Evaluación pendiente'}</div></div>
         <div class="acts">${e.certificate ? `<a class="btn amber sm" href="#/constancia/${c.id}">Constancia</a>` : next ? `<a class="btn sm" href="#/aprender/${c.id}/${next.id}">Continuar</a>` : `<a class="btn sm" href="#/evaluacion/${c.id}">Presentar evaluación</a>`}</div></div>`; };
     return `<div class="wrap">
-      <div class="page-head row between"><div><h1>Hola, ${esc(u.name.split(' ')[0])}</h1><p style="margin:0">Este es tu avance en EduWork.</p></div><a class="btn ghost" href="#/cursos">Explorar cursos</a></div>
+      <div class="page-head row between"><div><h1>Hola, ${esc(u.name.split(' ')[0])}</h1><p style="margin:0">Este es tu avance en EduWorkLine.</p></div><a class="btn ghost" href="#/cursos">Explorar cursos</a></div>
       <div class="stats">
         <div class="stat"><b>${es.length}</b><span>cursos inscritos</span></div>
         <div class="stat"><b>${lessons}</b><span>lecciones completadas</span></div>
@@ -482,10 +482,10 @@
       ['¿Cómo avanzo en un curso?', 'Abre cada lección y, al terminarla, da clic en "Marcar como completada y seguir". Tu avance se guarda y puedes retomarlo cuando quieras.'],
       ['¿Qué significan los estados?', '<b>No iniciado:</b> aún no comienzas. <b>En progreso:</b> ya completaste al menos una lección. <b>Completado:</b> aprobaste la evaluación final.'],
       ['¿Cómo obtengo mi constancia?', 'Completa todas las lecciones y aprueba la evaluación final con la calificación mínima. La constancia aparece en "Mi progreso" y puedes descargarla en PDF.'],
-      ['¿Cómo verifico una constancia?', 'En "Verificar constancia" escribe el folio que aparece en el documento (por ejemplo EW-2026-AB12C).']
+      ['¿Cómo verifico una constancia?', 'En "Verificar constancia" escribe el folio que aparece en el documento (por ejemplo EWL-2026-AB12C).']
     ];
     return `<div class="narrow section">
-      <h1>Ayuda</h1><p class="muted">Respuestas rápidas para usar EduWork.</p>
+      <h1>Ayuda</h1><p class="muted">Respuestas rápidas para usar EduWorkLine.</p>
       <div class="card faq">${faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
       <h2 class="mt" id="sugerir">Sugiere un curso</h2>
       <p class="muted">¿Qué habilidad te gustaría fortalecer? Tu sugerencia ayuda a ampliar el catálogo.</p>
@@ -691,7 +691,7 @@
         views[name].mount && views[name].mount(q, ...m.slice(1));
         if (!keepScroll && path !== lastPath) window.scrollTo(0, 0);
         lastPath = path;
-        const h = $('h1', app); document.title = (h && path !== '/' ? h.textContent + ' · ' : '') + 'EduWork · Capacitación para estudiantes';
+        const h = $('h1', app); document.title = (h && path !== '/' ? h.textContent + ' · ' : '') + 'EduWorkLine · Capacitación para estudiantes';
         return;
       }
     }

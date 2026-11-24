@@ -1,4 +1,4 @@
-# EduWork · Plataforma de capacitación para estudiantes
+# EduWorkLine · Plataforma de capacitación para estudiantes
 
 Plataforma web de capacitación en competencias laborales (Excel, trabajo en equipo, reportes, comunicación profesional y organización del tiempo).
 
@@ -19,8 +19,8 @@ Plataforma web de capacitación en competencias laborales (Excel, trabajo en equ
 ## Cuentas de demostración
 | Rol | Correo | Contraseña |
 | --- | --- | --- |
-| Estudiante | estudiante@eduwork.mx | demo123 |
-| Administrador | admin@eduwork.mx | admin123 |
+| Estudiante | estudiante@eduworkline.mx | demo123 |
+| Administrador | admin@eduworkline.mx | admin123 |
 
 ## Tecnología
 HTML, CSS y JavaScript sin dependencias. Datos en `localStorage` (prototipo). Publicado en Vercel (preset **Other**, sin build).

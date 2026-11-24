@@ -1,14 +1,14 @@
-/* EduWork · capa de datos del prototipo.
+/* EduWorkLine · capa de datos del prototipo.
    Guarda todo en localStorage del navegador (no requiere servidor).
    Para producción se reemplaza por una API + base de datos. */
 (function () {
-  const DB_KEY = 'eduwork_db_v3';
-  const SESSION_KEY = 'eduwork_session_v1';
+  const DB_KEY = 'eduworkline_db_v1';
+  const SESSION_KEY = 'eduworkline_session_v1';
 
   const uid = (p = '') => p + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
 
   async function hash(text) {
-    const data = new TextEncoder().encode('eduwork::' + text);
+    const data = new TextEncoder().encode('eduworkline::' + text);
     if (window.crypto && crypto.subtle) {
       const buf = await crypto.subtle.digest('SHA-256', data);
       return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
@@ -136,15 +136,15 @@
 
   async function seed() {
     const now = new Date().toISOString();
-    const admin = { id: 'u-admin', name: 'Administrador EduWork', email: 'admin@eduwork.mx', pass: await hash('admin123'), role: 'admin', school: '', career: '', bio: '', createdAt: now };
-    const demo = { id: 'u-demo', name: 'Ana López', email: 'estudiante@eduwork.mx', pass: await hash('demo123'), role: 'student', school: 'Universidad Demo', career: 'Administración', bio: 'Estudiante de 6.º semestre.', createdAt: now };
+    const admin = { id: 'u-admin', name: 'Administrador EduWorkLine', email: 'admin@eduworkline.mx', pass: await hash('admin123'), role: 'admin', school: '', career: '', bio: '', createdAt: now };
+    const demo = { id: 'u-demo', name: 'Ana López', email: 'estudiante@eduworkline.mx', pass: await hash('demo123'), role: 'student', school: 'Universidad Demo', career: 'Administración', bio: 'Estudiante de 6.º semestre.', createdAt: now };
     const db = {
       version: 1,
       users: [admin, demo],
       courses: seedCourses(),
       enrollments: [
         { id: uid('e-'), userId: 'u-demo', courseId: 'c-excel', enrolledAt: now, completed: ['l1', 'l2'], quiz: null, certificate: null },
-        { id: uid('e-'), userId: 'u-demo', courseId: 'c-comunicacion', enrolledAt: now, completed: ['l1', 'l2', 'l3'], quiz: { best: 100, attempts: 1, passedAt: now }, certificate: { folio: 'EW-2026-' + Math.random().toString(36).slice(2, 7).toUpperCase(), issuedAt: now } }
+        { id: uid('e-'), userId: 'u-demo', courseId: 'c-comunicacion', enrolledAt: now, completed: ['l1', 'l2', 'l3'], quiz: { best: 100, attempts: 1, passedAt: now }, certificate: { folio: 'EWL-2026-' + Math.random().toString(36).slice(2, 7).toUpperCase(), issuedAt: now } }
       ],
       suggestions: [
         { id: uid('s-'), userId: 'u-demo', name: 'Ana López', topic: 'Excel intermedio: gráficos y BUSCARV', note: 'Me lo piden en mis prácticas profesionales.', createdAt: now }
@@ -242,7 +242,7 @@
       e.quiz = e.quiz || { best: 0, attempts: 0, passedAt: null };
       e.quiz.attempts++; e.quiz.best = Math.max(e.quiz.best, score);
       if (passed && !e.quiz.passedAt) e.quiz.passedAt = new Date().toISOString();
-      if (passed && !e.certificate) e.certificate = { folio: 'EW-' + new Date().getFullYear() + '-' + Math.random().toString(36).slice(2, 7).toUpperCase(), issuedAt: new Date().toISOString() };
+      if (passed && !e.certificate) e.certificate = { folio: 'EWL-' + new Date().getFullYear() + '-' + Math.random().toString(36).slice(2, 7).toUpperCase(), issuedAt: new Date().toISOString() };
       this.save();
       return { score, passed, ok, total: qs.length };
     },
